@@ -1,0 +1,26 @@
+{
+  "name": "audio-worker-shim",
+  "description": "AudioWorker compatibility shim for legacy Web Audio API",
+  "version": "0.1.0",
+  "authors": [
+    "nao yonamine <mohayonao@gmail.com>"
+  ],
+  "homepage": "http://mohayonao.github.io/audio-worker-shim/",
+  "ignore": [
+    "**/.*",
+    "package.json",
+    "lib",
+    "test"
+  ],
+  "keywords": [
+    "webaudioapi",
+    "audioworker",
+    "shim"
+  ],
+  "license": "MIT",
+  "main": "build/audio-worker-shim.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mohayonao/audio-worker-shim.git"
+  }
+}
