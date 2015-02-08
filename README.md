@@ -1,4 +1,4 @@
-# StereoPannerNode
+# AudioWorkerShim
 [![Build Status](http://img.shields.io/travis/mohayonao/audio-worker-shim.svg?style=flat-square)](https://travis-ci.org/mohayonao/audio-worker-shim)
 [![NPM Version](http://img.shields.io/npm/v/audio-worker-shim.svg?style=flat-square)](https://www.npmjs.org/package/audio-worker-shim)
 [![Bower](http://img.shields.io/bower/v/audio-worker-shim.svg?style=flat-square)](http://bower.io/search/?q=audio-worker-shim)
@@ -7,6 +7,15 @@
 > AudioWorker compatibility shim for legacy Web Audio API
 
 http://webaudio.github.io/web-audio-api/#the-audioworker
+
+## Native API supports
+|                      | Support |
+| -------------------- |:-------:|
+| Google Chrome 40     | :x:     |
+| Firefox 35           | :x:     |
+| Safari 8             | :x:     |
+| Opera 27             | :x:     |
+| iOS 8                | :x:     |
 
 ## Installation
 
@@ -30,7 +39,7 @@ downloads:
 ## API
 ### AudioContext
 #### Instance Methods
-- `createAudioWorker(scriptURL: string, numberOfInputChannels: number, numberOfOutputChannels: number): AudioNode as AudioWorkerNode`
+- `createAudioWorker(scriptURL, numberOfInputChannels, numberOfOutputChannels): AudioNode as AudioWorkerNode`
 
 ## Example
 http://mohayonao.github.io/audio-worker-shim/
