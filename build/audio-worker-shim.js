@@ -276,7 +276,7 @@ AudioWorkerCode.filter = function(src) {
 
     while ((index = tokens.indexOf(attr, pos)) !== -1) {
       if (prevToken(index) !== ".") {
-        tokens[index] = "this." + tokens[index];
+        tokens[index] = "__self." + tokens[index];
       }
       pos = index + 1;
     }
@@ -287,7 +287,7 @@ AudioWorkerCode.filter = function(src) {
 
 AudioWorkerCode.compile = function(src) {
   var code = [
-    "(function() { 'use strict';",
+    "(function(__self) { 'use strict';",
     AudioWorkerCode.filter(src),
     "})"
   ].join("\n");
@@ -394,7 +394,7 @@ function AudioWorkerNodeImpl(audioContext, scriptURL, numOfInput, numOfOutput) {
 
   var scope = this.scope;
   ScriptLoader.load(scriptURL, function(script) {
-    AudioWorkerCode.compile(script).call(scope);
+    AudioWorkerCode.compile(script).call(scope, scope);
   });
 }
 

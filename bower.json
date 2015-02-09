@@ -1,7 +1,7 @@
 {
   "name": "audio-worker-shim",
   "description": "AudioWorker compatibility shim for legacy Web Audio API",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "authors": [
     "nao yonamine <mohayonao@gmail.com>"
   ],
