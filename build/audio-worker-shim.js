@@ -394,7 +394,9 @@ function AudioWorkerNodeImpl(audioContext, scriptURL, numOfInput, numOfOutput) {
 
   var scope = this.scope;
   ScriptLoader.load(scriptURL, function(script) {
-    AudioWorkerCode.compile(script).call(scope, scope);
+    try {
+      AudioWorkerCode.compile(script).call(scope, scope);
+    } catch (e) {}
   });
 }
 
@@ -663,7 +665,9 @@ ScriptLoader.load = function(scriptURL, callback) {
   var xhr = new global.XMLHttpRequest();
   xhr.open("GET", scriptURL);
   xhr.onload = function() {
-    callback(xhr.response);
+    if (xhr.status === 200) {
+      callback(xhr.response);
+    }
   };
   xhr.send();
 };
