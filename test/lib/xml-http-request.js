@@ -17,12 +17,21 @@ XMLHttpRequest.prototype.send = function() {
 
   fs.readFile(filename, "utf-8", function(err, data) {
     if (err) {
-      if (typeof _this.onerror === "function") {
-        _this.onerror(err);
+      _this.status = 404;
+      _this.statusText = "Not Found";
+      _this.response = "Not Found";
+      if (typeof _this.onload === "function") {
+        _this.onload();
       }
     } else {
+      _this.status = 200;
+      _this.statusText = "OK";
+      if (_this.responseType === "arraybuffer") {
+        _this.response = new Uint8Array(data).buffer;
+      } else {
+        _this.response = data.toString();
+      }
       if (typeof _this.onload === "function") {
-        _this.response = data;
         _this.onload();
       }
     }
