@@ -7,14 +7,14 @@
     "url": "https://github.com/mohayonao/audio-worker-shim/issues"
   },
   "dependencies": {
-    "audio-worker-node": "^0.1.1"
+    "audio-worker-node": "^0.1.2"
   },
   "devDependencies": {
-    "browserify": "^8.1.3",
-    "jshint": "^2.6.0",
-    "jshint-stylish": "^1.0.0",
-    "mocha": "^2.1.0",
-    "uglify-js": "^2.4.16",
+    "browserify": "^9.0.3",
+    "jshint": "^2.6.3",
+    "jshint-stylish": "^1.0.1",
+    "mocha": "^2.2.1",
+    "uglify-js": "^2.4.17",
     "web-audio-test-api": "^0.2.1"
   },
   "files": [
