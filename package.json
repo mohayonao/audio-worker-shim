@@ -1,46 +1,27 @@
 {
   "name": "audio-worker-shim",
   "description": "AudioWorker compatibility shim for legacy Web Audio API",
-  "version": "0.1.2",
-  "author": "nao yonamine <mohayonao@gmail.com>",
+  "version": "0.0.0",
+  "author": "Nao Yonamine <mohayonao@gmail.com>",
   "bugs": {
     "url": "https://github.com/mohayonao/audio-worker-shim/issues"
   },
-  "dependencies": {
-    "audio-worker-node": "^0.1.2"
-  },
-  "devDependencies": {
-    "browserify": "^9.0.3",
-    "jshint": "^2.6.3",
-    "jshint-stylish": "^1.0.1",
-    "mocha": "^2.2.1",
-    "uglify-js": "^2.4.17",
-    "web-audio-test-api": "^0.2.1"
-  },
   "files": [
-    "lib",
     "package.json",
-    "README.md"
+    "README.md",
+    "index.js",
+    "lib"
   ],
   "homepage": "http://mohayonao.github.io/audio-worker-shim/",
   "keywords": [
-    "webaudioapi",
     "audioworker",
-    "shim"
+    "shim",
+    "webaudioapi"
   ],
   "license": "MIT",
-  "main": "lib/audio-worker-shim.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/mohayonao/audio-worker-shim.git"
-  },
-  "scripts": {
-    "build": "npm run build-browser && npm run build-minify",
-    "build-browser": "browserify lib/audio-worker-shim.js -o build/audio-worker-shim.js",
-    "build-minify": "uglifyjs build/audio-worker-shim.js -o build/audio-worker-shim.min.js",
-    "cover": "istanbul cover node_modules/mocha/bin/_mocha",
-    "lint": "jshint --reporter node_modules/jshint-stylish/stylish.js lib test",
-    "test": "mocha",
-    "travis": "npm run lint && npm run test"
   }
 }
