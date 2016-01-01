@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>audio-worker-shim examples: bitcrusher</title>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
+  <style>
+    .prettyprint { padding: 0; margin: 0; background: white; border: none !important; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>audio-worker-shim examples: bitcrusher</h1>
+    <div id="app">
+      <div class="well">{{ message }}</div>
+      <div class="form">
+        <button id="start" class="btn btn-default" style="width:100px" v-on:click="stop">stop</button>
+        <div style="padding: 15px">
+          <div class="form-group" v-for="param in parameters">
+            <label>{{ param.name }}: </label> {{ param.calc(param.value) }}
+            <input type="range" class="form-control" v-model="param.value" v-on:input="change">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">worker</h3>
+      </div>
+      <div class="panel-body">
+        <pre class="prettyprint" id="code"></pre>
+      </div>
+    </div>
+  </div>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.13/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
+  <script src="../build/audio-worker-shim.js"></script>
+  <script src="app.js" worker-path="bitcrusher_worker.js"></script>
+</body>
+</html>

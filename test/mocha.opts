@@ -1,3 +1,3 @@
 --reporter spec
---require web-audio-test-api
---require ./test/lib/xml-http-request
+--recursive
+--require test/browser-libs/xml-http-request
