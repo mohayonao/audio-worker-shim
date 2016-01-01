@@ -6,6 +6,11 @@
   "bugs": {
     "url": "https://github.com/mohayonao/audio-worker-shim/issues"
   },
+  "dependencies": {
+    "audio-worker-compiler": "^1.0.0",
+    "audio-worker-node": "^0.2.0",
+    "lodash.findindex": "^3.2.1"
+  },
   "devDependencies": {
     "babel-cli": "^6.3.17",
     "babel-eslint": "^4.1.6",
