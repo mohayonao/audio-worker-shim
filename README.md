@@ -90,6 +90,11 @@ onaudioprocess = function(e) {
 };
 ```
 
+## SEE ALSO
+
+- [Web Audio API Draft - 2.12 The AudioWorker interface](http://webaudio.github.io/web-audio-api/#AudioWorker)
+- [AudioWorker を試してみる](http://qiita.com/mohayonao/items/ce357230946cfa2303c2) _(Japanese)_
+
 ## License
 
 MIT
