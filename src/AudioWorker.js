@@ -75,6 +75,8 @@ class AudioWorker {
       numberOfOutputs: numberOfOutputs,
       parameters: this._parameters,
       processor: proc,
+      bufferLength: 1024,
+      dspBufLength: 128,
     });
 
     setTimeout(() => {

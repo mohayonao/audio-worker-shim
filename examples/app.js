@@ -42,6 +42,8 @@ window.addEventListener("DOMContentLoaded", function() {
   }).then(function(result) {
     document.getElementById("code").textContent = result;
     prettyPrint();
+  }).catch(function(e) {
+    console.error(e);
   });
 
   var audioContext = new AudioContext();
@@ -53,7 +55,7 @@ window.addEventListener("DOMContentLoaded", function() {
     el: "#app",
     data: {
       message: "ready...",
-      parameters: []
+      parameters: [],
     },
     methods: {
       change: function() {
@@ -72,6 +74,22 @@ window.addEventListener("DOMContentLoaded", function() {
     }
   });
 
+  function repeat(n, ch) {
+    var str = "";
+
+    while (0 < n--) {
+     str += ch;
+    }
+
+    return str;
+  }
+
+  function preview(buffers) {
+    var amp = Math.abs((buffers[0][0] + buffers[1][0]) * 0.5);
+
+    vue.message = repeat(Math.floor(amp * 80) + 1, "|");
+  }
+
   function start(file) {
     if (workerFactory !== null) {
       if (new Audio().canPlayType(file.type)) {
@@ -85,6 +103,15 @@ window.addEventListener("DOMContentLoaded", function() {
           }
           bufSrc = audioContext.createBufferSource();
           workerNode = workerFactory.createNode(2, 2);
+
+          // recv from capture_worker.js
+          workerNode.onmessage = function(e) {
+            var buffers = e.data;
+
+            preview(buffers);
+
+            workerNode.postMessage(buffers, [ buffers[0].buffer, buffers[1].buffer ]);
+          };
 
           bufSrc.buffer = audioBuffer;
           bufSrc.onended = stop;
@@ -118,6 +145,12 @@ window.addEventListener("DOMContentLoaded", function() {
         return linlin(value, 0, 50, 0, param.defaultValue);
       }
       vue.parameters.push({ name: param.name, value: 50, calc: calc });
+    });
+    window.addEventListener("mousemove", function(e) {
+      var x = e.pageX / window.innerWidth;
+      var y = e.pageY / window.innerHeight;
+
+      workerFactory.postMessage({ x: x, y : y });
     });
     stop();
   });

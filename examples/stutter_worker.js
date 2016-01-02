@@ -2,12 +2,12 @@ function sample(list) {
   return list[Math.floor(Math.random() * list.length)];
 }
 
-addParameter("glitch", 0.000075);
+this.addParameter("glitch", 0.000075);
 
 onnodecreate = function(e) {
-  e.node.inputs = new Array(e.inputs.length);
-  for (var i = 0; i < e.node.inputs.length; i++) {
-    e.node.inputs[i] = {
+  e.node.params = new Array(e.inputs.length);
+  for (var i = 0; i < e.node.params.length; i++) {
+    e.node.params[i] = {
       state: 0,
       loopCounter: 0,
       bufferIndex: 0,
@@ -25,7 +25,7 @@ onaudioprocess = function(e) {
     var loopLength;
 
     for (var i = 0; i < bufferLength; i++) {
-      var params = e.node.inputs[channel];
+      var params = e.node.params[channel];
 
       if (params.state === 0) {
         if (Math.random() < e.parameters.glitch[i]) {
