@@ -13,17 +13,19 @@ $ npm install audio-worker-shim
 
 downloads:
 - with [AudioWorkerCompiler](https://github.com/mohayonao/audio-worker-compiler)
-  - [audio-worker-shim.js](https://raw.githubusercontent.com/mohayonao/audio-worker-shim/master/build/audio-worker-shim.js) _(553.42kb)_
-  - [audio-worker-shim.min.js](https://raw.githubusercontent.com/mohayonao/audio-worker-shim/master/build/audio-worker-shim.min.js) _(298.74kb)_
+  - [audio-worker-shim.js](https://raw.githubusercontent.com/mohayonao/audio-worker-shim/master/build/audio-worker-shim.js) _(554.67kB)_
+  - [audio-worker-shim.min.js](https://raw.githubusercontent.com/mohayonao/audio-worker-shim/master/build/audio-worker-shim.min.js) _(299.70kB)_
 
 
 - without [AudioWorkerCompiler](https://github.com/mohayonao/audio-worker-compiler)
-  - [audio-worker-shim-light.js](https://raw.githubusercontent.com/mohayonao/audio-worker-shim/master/build/audio-worker-shim-light.js) _(67.74kb)_
-  - [audio-worker-shim-light.min.js](https://raw.githubusercontent.com/mohayonao/audio-worker-shim/master/build/audio-worker-shim-light.min.js) _(29.78kb)_
+  - [audio-worker-shim-light.js](https://raw.githubusercontent.com/mohayonao/audio-worker-shim/master/build/audio-worker-shim-light.js) _(69.00kB)_
+  - [audio-worker-shim-light.min.js](https://raw.githubusercontent.com/mohayonao/audio-worker-shim/master/build/audio-worker-shim-light.min.js) _(30.73kB)_
 
 ## Demo
 - [bitcrusher_worker.js](http://mohayonao.github.io/audio-worker-shim/examples/bitcrusher.html)
 - [stutter_worker.js](http://mohayonao.github.io/audio-worker-shim/examples/stutter.html)
+- [mousenoise_worker.js](http://mohayonao.github.io/audio-worker-shim/examples/mousenoise.html)
+- [capture_worker.js](http://mohayonao.github.io/audio-worker-shim/examples/capture.html)
 
 ## API
 ### AudioWorkerShim
