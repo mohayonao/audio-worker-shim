@@ -1,14 +1,14 @@
 {
   "name": "audio-worker-shim",
   "description": "AudioWorker compatibility shim for legacy Web Audio API",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "Nao Yonamine <mohayonao@gmail.com>",
   "bugs": {
     "url": "https://github.com/mohayonao/audio-worker-shim/issues"
   },
   "dependencies": {
     "audio-worker-compiler": "^1.0.0",
-    "audio-worker-node": "^0.3.0",
+    "audio-worker-node": "^0.3.1",
     "lodash.findindex": "^3.2.1"
   },
   "devDependencies": {

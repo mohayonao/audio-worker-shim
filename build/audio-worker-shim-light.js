@@ -401,7 +401,7 @@ function AudioWorkerNode(audioContext, audioprocess, opts) {
   var bufferLength = +defaults(opts.bufferLength, 1024)|0;
   var dspBufLength = +defaults(opts.dspBufLength, 1024)|0;
   var playbackTimeIncr = dspBufLength / audioContext.sampleRate;
-  var paramKeys = [], paramBuffers = [];
+  var paramKeys = [], paramBuffers = [], paramCaptures = [];
   var processor = opts.processor || {};
   var dc1, silencer;
   var node = audioContext.createScriptProcessor(bufferLength, numberOfInputs, numberOfOutputs);
@@ -442,20 +442,21 @@ function AudioWorkerNode(audioContext, audioprocess, opts) {
 
     opts.parameters.forEach(function(param, index) {
       var paramGain = audioContext.createGain();
-      var paramCapture = audioContext.createScriptProcessor(bufferLength, 1, 1);
+
+      paramCaptures[index] = audioContext.createScriptProcessor(bufferLength, 1, 1);
 
       paramGain.gain.value = +param.defaultValue || 0;
       node[param.name] = paramGain.gain;
 
       paramKeys[index] = param.name;
 
-      paramCapture.onaudioprocess = function(e) {
+      paramCaptures[index].onaudioprocess = function(e) {
         paramBuffers[index] = e.inputBuffer.getChannelData(0);
       };
 
       dc1.connect(paramGain);
-      paramGain.connect(paramCapture);
-      paramCapture.connect(silencer);
+      paramGain.connect(paramCaptures[index]);
+      paramCaptures[index].connect(silencer);
     });
   }
 
