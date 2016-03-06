@@ -389,21 +389,18 @@ function getDC1(audioContext) {
   return _dc1;
 }
 
-function defaults(value, defaultValue) {
-  return typeof value !== "undefined" ? value : defaultValue;
-}
-
 function AudioWorkerNode(audioContext, audioprocess, opts) {
   opts = opts || {};
 
-  var numberOfInputs = +defaults(opts.numberOfInputs, 1)|0;
-  var numberOfOutputs = +defaults(opts.numberOfOutputs, 1)|0;
-  var bufferLength = +defaults(opts.bufferLength, 1024)|0;
-  var dspBufLength = +defaults(opts.dspBufLength, 1024)|0;
+  var numberOfInputs = Math.max(1, Math.min(+opts.numberOfInputs|0, 32));
+  var numberOfOutputs = Math.max(1, Math.min(+opts.numberOfOutputs|0, 32));
+  var bufferLength = Math.max(256, Math.min(+opts.bufferLength|0, 16384));
+  var dspBufLength = Math.max(128, Math.min(+opts.dspBufLength|0, bufferLength));
   var playbackTimeIncr = dspBufLength / audioContext.sampleRate;
-  var paramKeys = [], paramBuffers = [], paramCaptures = [];
+  var numberOfParams = (opts.parameters && opts.parameters.length)|0;
+  var paramKeys = [], paramBuffers = [];
   var processor = opts.processor || {};
-  var dc1, silencer;
+  var dc1, merger, capture;
   var node = audioContext.createScriptProcessor(bufferLength, numberOfInputs, numberOfOutputs);
 
   node._onmessage = null;
@@ -429,35 +426,37 @@ function AudioWorkerNode(audioContext, audioprocess, opts) {
     }, 0);
   };
 
-  if (opts.parameters && opts.parameters.length) {
+  if (numberOfParams) {
     dc1 = audioContext.createBufferSource();
-    silencer = audioContext.createGain();
+    merger = audioContext.createChannelMerger(numberOfParams);
+    capture = audioContext.createScriptProcessor(bufferLength, numberOfParams, 1);
 
     dc1.buffer = getDC1(audioContext);
     dc1.loop = true;
-    dc1.start(audioContext.currentTime);
-
-    silencer.gain.value = 0;
-    silencer.connect(node);
+    dc1.start(0);
 
     opts.parameters.forEach(function(param, index) {
       var paramGain = audioContext.createGain();
 
-      paramCaptures[index] = audioContext.createScriptProcessor(bufferLength, 1, 1);
-
+      paramGain.channelCount = 1;
+      paramGain.channelCountMode = "explicit";
       paramGain.gain.value = +param.defaultValue || 0;
       node[param.name] = paramGain.gain;
 
       paramKeys[index] = param.name;
 
-      paramCaptures[index].onaudioprocess = function(e) {
-        paramBuffers[index] = e.inputBuffer.getChannelData(0);
-      };
-
       dc1.connect(paramGain);
-      paramGain.connect(paramCaptures[index]);
-      paramCaptures[index].connect(silencer);
+      paramGain.connect(merger, 0, index);
     });
+
+    capture.onaudioprocess = function(e) {
+      for (var i = 0; i < numberOfParams; i++) {
+        paramBuffers[i] = e.inputBuffer.getChannelData(i);
+      }
+    };
+
+    merger.connect(capture);
+    capture.connect(node);
   }
 
   node.onaudioprocess = function(e) {
