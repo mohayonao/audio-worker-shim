@@ -1,3 +1,11 @@
+# Remove obsolete AudioWorker definition from spec
+
+> We've  replaced AudioWorker with AudioWorklet, so it should be removed to avoid further confusion.
+
+https://github.com/WebAudio/web-audio-api/issues/956
+
+---
+
 # AudioWorkerShim
 [![Build Status](http://img.shields.io/travis/mohayonao/audio-worker-shim.svg?style=flat-square)](https://travis-ci.org/mohayonao/audio-worker-shim)
 [![NPM Version](http://img.shields.io/npm/v/audio-worker-shim.svg?style=flat-square)](https://www.npmjs.org/package/audio-worker-shim)
